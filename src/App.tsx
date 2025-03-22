@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import ResumeGenerator from "./pages/ResumeGenerator";
+import ATSScorePage from "./pages/ATSScorePage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/resume-generator" element={<ResumeGenerator />} />
+          <Route path="/ats-score" element={<ATSScorePage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

@@ -36,7 +36,7 @@ const pricingPlans = [
     ],
     buttonText: 'Choose Basic',
     buttonVariant: 'default',
-    highlight: true,
+    highlight: false,
     highlightText: 'Popular',
   },
   {
@@ -96,14 +96,14 @@ const Pricing = () => {
             <div
               key={index}
               className={`relative bg-white rounded-2xl p-7 flex flex-col transition-all duration-300 h-full ${
-                focusedPlan === index || plan.highlight
+                focusedPlan === index
                   ? 'shadow-card ring-2 ring-primary/20 transform -translate-y-1'
                   : 'shadow-elegant hover:shadow-card hover:transform hover:-translate-y-1'
               }`}
               onMouseEnter={() => setFocusedPlan(index)}
               onMouseLeave={() => setFocusedPlan(null)}
             >
-              {plan.highlight && (
+              {plan.highlightText && (
                 <div className="absolute -top-3 right-5 bg-primary px-3 py-1 rounded-full text-xs font-medium text-white">
                   {plan.highlightText}
                 </div>
@@ -133,7 +133,7 @@ const Pricing = () => {
               </div>
               
               {/* Button is now at the same level for all plans */}
-              <Link to="/register" className="block mt-auto">
+              <Link to="/ats-score" className="block mt-auto">
                 <Button
                   variant={plan.buttonVariant as "outline" | "default"}
                   className="w-full rounded-full"

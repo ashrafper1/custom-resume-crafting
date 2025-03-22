@@ -6,6 +6,7 @@ import Hero from '@/components/home/Hero';
 import Features from '@/components/home/Features';
 import Pricing from '@/components/home/Pricing';
 import HowItWorks from '@/components/home/HowItWorks';
+import Reviews from '@/components/home/Reviews';
 
 const Index = () => {
   return (
@@ -14,6 +15,7 @@ const Index = () => {
       <main className="flex-grow">
         <Hero />
         <HowItWorks />
+        <Reviews />
         <Features />
         <Pricing />
       </main>

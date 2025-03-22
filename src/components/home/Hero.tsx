@@ -17,7 +17,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="relative pt-40 pb-16 md:pt-52 md:pb-24 overflow-hidden">
+    <section className="relative pt-32 pb-16 md:pt-44 md:pb-20 overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute -right-8 top-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl transform -translate-y-1/2" />
@@ -40,9 +40,9 @@ const Hero = () => {
               Our AI analyzes job descriptions and optimizes your resume to match exactly what employers are looking for, improving your chances of landing interviews.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link to="/register">
+              <Link to="/ats-score">
                 <Button size="lg" className="rounded-full px-8 py-6 text-md shadow-elegant">
-                  Get Started Free
+                  Check Your ATS Score Free
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
