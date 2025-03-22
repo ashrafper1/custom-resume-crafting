@@ -18,7 +18,7 @@ const pricingPlans = [
     ],
     buttonText: 'Start Free',
     buttonVariant: 'outline',
-    highlightText: 'Popular',
+    highlightText: '',
     highlight: false,
   },
   {
@@ -77,9 +77,12 @@ const pricingPlans = [
 
 const Pricing = () => {
   const [focusedPlan, setFocusedPlan] = useState<number | null>(null);
+  
+  // Find the plan with the most features to normalize height
+  const maxFeatures = Math.max(...pricingPlans.map(plan => plan.features.length));
 
   return (
-    <section className="py-20" id="pricing">
+    <section className="py-20 bg-gray-50" id="pricing">
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="h2 mb-4">Simple, Transparent Pricing</h2>
@@ -88,11 +91,11 @@ const Pricing = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
           {pricingPlans.map((plan, index) => (
             <div
               key={index}
-              className={`relative bg-white rounded-2xl p-7 transition-all duration-300 ${
+              className={`relative bg-white rounded-2xl p-7 flex flex-col transition-all duration-300 h-full ${
                 focusedPlan === index || plan.highlight
                   ? 'shadow-card ring-2 ring-primary/20 transform -translate-y-1'
                   : 'shadow-elegant hover:shadow-card hover:transform hover:-translate-y-1'
@@ -113,14 +116,23 @@ const Pricing = () => {
                 <span className="text-3xl font-bold">{plan.price}</span>
                 <span className="text-muted-foreground ml-1 text-sm">/{plan.duration}</span>
               </div>
-              <ul className="space-y-3 mb-7">
+              
+              {/* Features list with fixed height to ensure buttons align */}
+              <div className="space-y-3 mb-7 flex-grow">
                 {plan.features.map((feature, featureIndex) => (
-                  <li key={featureIndex} className="flex items-start">
+                  <li key={featureIndex} className="flex items-start list-none">
                     <Check className="h-5 w-5 text-blue-600 mr-2 shrink-0 mt-0.5" />
                     <span className="text-sm">{feature}</span>
                   </li>
                 ))}
-              </ul>
+                
+                {/* Add empty space for plans with fewer features */}
+                {Array(maxFeatures - plan.features.length).fill(0).map((_, i) => (
+                  <div key={`empty-${i}`} className="h-[26px]"></div> // Approx height of a feature item
+                ))}
+              </div>
+              
+              {/* Button is now at the same level for all plans */}
               <Link to="/register" className="block mt-auto">
                 <Button
                   variant={plan.buttonVariant as "outline" | "default"}

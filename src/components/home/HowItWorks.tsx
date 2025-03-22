@@ -1,6 +1,8 @@
 
-import React from 'react';
-import { Upload, Sparkles, FileCheck, Download } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { Upload, Sparkles, FileCheck, Download, ChevronLeft, ChevronRight, Star } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 
 const steps = [
   {
@@ -25,7 +27,78 @@ const steps = [
   }
 ];
 
+const testimonials = [
+  {
+    name: "Sarah Johnson",
+    role: "Software Engineer",
+    text: "ResumeAI helped me land interviews at companies that had previously rejected me. The keyword optimization was a game-changer!",
+    rating: 5,
+    image: "https://randomuser.me/api/portraits/women/44.jpg"
+  },
+  {
+    name: "Michael Chen",
+    role: "Marketing Specialist",
+    text: "After using ResumeAI, I got responses from 8 out of 10 applications, compared to my previous 1 in 15 success rate.",
+    rating: 5,
+    image: "https://randomuser.me/api/portraits/men/46.jpg"
+  },
+  {
+    name: "Emily Rodriguez",
+    role: "UX Designer",
+    text: "The template selection and ATS optimization helped my resume stand out. Landed my dream job within 3 weeks!",
+    rating: 5,
+    image: "https://randomuser.me/api/portraits/women/63.jpg"
+  },
+  {
+    name: "David Wilson",
+    role: "Project Manager",
+    text: "Worth every penny! The tailored keywords matched exactly what employers were looking for in my industry.",
+    rating: 4,
+    image: "https://randomuser.me/api/portraits/men/22.jpg"
+  },
+  {
+    name: "Priya Patel",
+    role: "Data Analyst",
+    text: "From 0 callbacks to 5 interviews in one week after using ResumeAI. The difference was remarkable.",
+    rating: 5,
+    image: "https://randomuser.me/api/portraits/women/37.jpg"
+  }
+];
+
+const renderStars = (rating: number) => {
+  return Array(5).fill(0).map((_, i) => (
+    <Star 
+      key={i} 
+      className={`h-4 w-4 ${i < rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`} 
+    />
+  ));
+};
+
 const HowItWorks = () => {
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const testimonialRef = useRef<HTMLDivElement>(null);
+  
+  const nextTestimonial = () => {
+    setCurrentTestimonial((prev) => 
+      prev === testimonials.length - 1 ? 0 : prev + 1
+    );
+  };
+
+  const prevTestimonial = () => {
+    setCurrentTestimonial((prev) => 
+      prev === 0 ? testimonials.length - 1 : prev - 1
+    );
+  };
+
+  useEffect(() => {
+    if (testimonialRef.current) {
+      testimonialRef.current.scrollTo({
+        left: currentTestimonial * testimonialRef.current.offsetWidth,
+        behavior: 'smooth'
+      });
+    }
+  }, [currentTestimonial]);
+
   return (
     <section className="py-20 bg-background" id="how-it-works">
       <div className="container mx-auto px-4 md:px-6">
@@ -36,7 +109,104 @@ const HowItWorks = () => {
           </p>
         </div>
 
-        <div className="max-w-5xl mx-auto">
+        {/* Resume Transformation Visualization */}
+        <div className="max-w-6xl mx-auto mb-20">
+          <div className="relative grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            {/* Bad Resume */}
+            <div className="transform transition-all hover:-translate-y-2 duration-300">
+              <div className="relative">
+                <div className="absolute -top-12 left-1/2 -translate-x-1/2 bg-red-100 text-red-600 px-4 py-2 rounded-full font-medium">
+                  Standard Resume
+                </div>
+                <div className="border border-red-200 rounded-xl p-6 bg-white shadow-elegant">
+                  <div className="space-y-2 mb-4">
+                    <div className="h-8 bg-gray-100 rounded-md w-1/2"></div>
+                    <div className="h-4 bg-gray-100 rounded-md w-3/4"></div>
+                    <div className="h-4 bg-gray-100 rounded-md w-full"></div>
+                  </div>
+                  <div className="space-y-1 mb-6">
+                    <div className="h-3 bg-red-100 rounded-md w-full"></div>
+                    <div className="h-3 bg-red-100 rounded-md w-full"></div>
+                    <div className="h-3 bg-red-100 rounded-md w-3/4"></div>
+                  </div>
+                  <div className="space-y-2 mb-4">
+                    <div className="h-6 bg-gray-100 rounded-md w-1/3"></div>
+                    <div className="space-y-1">
+                      <div className="h-3 bg-red-100 rounded-md w-full"></div>
+                      <div className="h-3 bg-red-100 rounded-md w-5/6"></div>
+                      <div className="h-3 bg-red-100 rounded-md w-full"></div>
+                    </div>
+                  </div>
+                  
+                  {/* Problem indicators */}
+                  <div className="absolute -right-4 top-1/4 bg-red-100 text-red-600 px-3 py-2 rounded-lg text-xs font-medium shadow-sm animate-pulse">
+                    Missing keywords
+                  </div>
+                  <div className="absolute -right-4 bottom-1/4 bg-red-100 text-red-600 px-3 py-2 rounded-lg text-xs font-medium shadow-sm animate-pulse delay-300">
+                    ATS score: 35%
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Arrow and AI process in the middle */}
+            <div className="hidden md:block absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+              <div className="bg-blue-600 rounded-full p-4 shadow-lg">
+                <Sparkles className="h-8 w-8 text-white" />
+              </div>
+              <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-blue-100 text-blue-700 px-4 py-1 rounded-full text-sm font-medium whitespace-nowrap">
+                AI Optimization
+              </div>
+              <svg className="absolute top-1/2 -left-32 transform -translate-y-1/2" width="120" height="40" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,20 Q60,-20 120,20" stroke="#2563EB" strokeWidth="3" fill="none" strokeDasharray="5,5" />
+                <path d="M110,15 L120,20 L110,25" stroke="#2563EB" strokeWidth="3" fill="none" />
+              </svg>
+            </div>
+
+            {/* Optimized Resume */}
+            <div className="transform transition-all hover:-translate-y-2 duration-300">
+              <div className="relative">
+                <div className="absolute -top-12 left-1/2 -translate-x-1/2 bg-green-100 text-green-600 px-4 py-2 rounded-full font-medium">
+                  Optimized Resume
+                </div>
+                <div className="border border-green-200 rounded-xl p-6 bg-white shadow-card">
+                  <div className="space-y-2 mb-4">
+                    <div className="h-8 bg-gray-100 rounded-md w-1/2"></div>
+                    <div className="h-4 bg-gray-100 rounded-md w-3/4"></div>
+                    <div className="h-4 bg-gray-100 rounded-md w-full"></div>
+                  </div>
+                  <div className="space-y-1 mb-6">
+                    <div className="h-3 bg-green-100 rounded-md w-full"></div>
+                    <div className="h-3 bg-green-100 rounded-md w-full"></div>
+                    <div className="h-3 bg-green-100 rounded-md w-3/4"></div>
+                  </div>
+                  <div className="space-y-2 mb-4">
+                    <div className="h-6 bg-gray-100 rounded-md w-1/3"></div>
+                    <div className="space-y-1">
+                      <div className="h-3 bg-green-100 rounded-md w-full"></div>
+                      <div className="h-3 bg-green-100 rounded-md w-5/6"></div>
+                      <div className="h-3 bg-green-100 rounded-md w-full"></div>
+                    </div>
+                  </div>
+                  
+                  {/* Success indicators */}
+                  <div className="absolute -right-4 top-1/4 bg-green-100 text-green-600 px-3 py-2 rounded-lg text-xs font-medium shadow-sm">
+                    Keywords matched
+                  </div>
+                  <div className="absolute -right-4 bottom-1/4 bg-green-100 text-green-600 px-3 py-2 rounded-lg text-xs font-medium shadow-sm">
+                    ATS score: 95%
+                  </div>
+                  <div className="absolute bottom-0 right-0 transform translate-y-1/2 translate-x-1/4 bg-green-600 text-white rounded-full w-14 h-14 flex items-center justify-center text-xs font-bold shadow-xl">
+                    100+ Replies
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Process Steps */}
+        <div className="max-w-5xl mx-auto mb-20">
           <div className="relative">
             {/* Connecting line */}
             <div className="absolute top-16 left-0 w-full border-t-2 border-dashed border-gray-200 z-0 hidden md:block"></div>
@@ -58,41 +228,87 @@ const HowItWorks = () => {
               ))}
             </div>
           </div>
-          
-          {/* Testimonial/Stats Section */}
-          <div className="mt-20 bg-blue-50 rounded-2xl p-8 md:p-10">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="col-span-1 md:col-span-2">
-                <h3 className="text-xl font-semibold mb-4">Why Our Approach Works</h3>
-                <p className="text-muted-foreground mb-6">
-                  Modern companies use Applicant Tracking Systems (ATS) to filter resumes before a human ever sees them.
-                  Our AI analyzes these systems to ensure your resume gets through the initial screening and into the
-                  hands of hiring managers.
-                </p>
-                <div className="text-sm">
-                  <blockquote className="italic border-l-4 border-blue-600 pl-4">
-                    "ResumeAI helped me tailor my resume to each job application, which significantly improved my
-                    response rate. I landed interviews at companies that had previously rejected me."
-                  </blockquote>
-                  <p className="mt-3 font-medium">— Sarah J., Software Engineer</p>
-                </div>
-              </div>
-              <div className="flex flex-col justify-center space-y-6">
-                <div className="bg-white p-5 rounded-xl shadow-elegant">
-                  <p className="text-3xl font-bold text-blue-600">93%</p>
-                  <p className="text-sm text-muted-foreground">of users report higher interview rates</p>
-                </div>
-                <div className="bg-white p-5 rounded-xl shadow-elegant">
-                  <p className="text-3xl font-bold text-blue-600">4.2×</p>
-                  <p className="text-sm text-muted-foreground">more likely to pass ATS screening</p>
-                </div>
-                <div className="bg-white p-5 rounded-xl shadow-elegant">
-                  <p className="text-3xl font-bold text-blue-600">78%</p>
-                  <p className="text-sm text-muted-foreground">faster resume creation process</p>
-                </div>
+        </div>
+
+        {/* Testimonial Carousel */}
+        <div className="max-w-5xl mx-auto">
+          <h3 className="text-2xl font-semibold mb-8 text-center">What Our Users Say</h3>
+          <div className="relative">
+            <div className="absolute left-0 top-1/2 transform -translate-y-1/2 z-20">
+              <Button 
+                onClick={prevTestimonial} 
+                variant="outline" 
+                size="icon" 
+                className="rounded-full h-10 w-10 bg-white shadow-md hover:bg-gray-100"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </Button>
+            </div>
+            
+            <div 
+              ref={testimonialRef}
+              className="flex overflow-hidden pb-6"
+            >
+              <div className="flex transition-transform duration-300 w-full">
+                {testimonials.map((testimonial, idx) => (
+                  <div 
+                    key={idx} 
+                    className="min-w-full px-12"
+                    style={{ transform: `translateX(-${currentTestimonial * 100}%)` }}
+                  >
+                    <Card className="border-none shadow-elegant">
+                      <CardContent className="pt-6">
+                        <div className="flex items-center mb-4">
+                          <div className="flex">{renderStars(testimonial.rating)}</div>
+                        </div>
+                        <p className="text-lg italic mb-6">"{testimonial.text}"</p>
+                        <div className="flex items-center">
+                          <div className="h-12 w-12 rounded-full overflow-hidden mr-4">
+                            <img src={testimonial.image} alt={testimonial.name} className="h-full w-full object-cover" />
+                          </div>
+                          <div>
+                            <p className="font-medium">{testimonial.name}</p>
+                            <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                ))}
               </div>
             </div>
+            
+            <div className="absolute right-0 top-1/2 transform -translate-y-1/2 z-20">
+              <Button 
+                onClick={nextTestimonial} 
+                variant="outline" 
+                size="icon" 
+                className="rounded-full h-10 w-10 bg-white shadow-md hover:bg-gray-100"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </Button>
+            </div>
           </div>
+          
+          <div className="flex justify-center mt-4 space-x-2">
+            {testimonials.map((_, idx) => (
+              <button 
+                key={idx}
+                onClick={() => setCurrentTestimonial(idx)}
+                className={`h-2 rounded-full transition-all ${
+                  currentTestimonial === idx ? 'w-6 bg-blue-600' : 'w-2 bg-gray-300'
+                }`}
+                aria-label={`Go to testimonial ${idx + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Get Started Button */}
+        <div className="text-center mt-16">
+          <Button size="lg" className="rounded-full px-8 py-6 text-lg shadow-card">
+            Get Started for Free
+          </Button>
         </div>
       </div>
     </section>
