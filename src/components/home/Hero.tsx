@@ -17,7 +17,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="relative pt-40 pb-20 md:pt-52 md:pb-32 overflow-hidden">
+    <section className="relative pt-40 pb-16 md:pt-52 md:pb-24 overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute -right-8 top-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl transform -translate-y-1/2" />
@@ -51,40 +51,6 @@ const Hero = () => {
                   See How It Works
                 </Button>
               </Link>
-            </div>
-          </div>
-
-          {/* Preview Image */}
-          <div className={`mt-16 sm:mt-20 transition-all duration-1000 delay-300 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
-            <div className="relative mx-auto max-w-4xl">
-              <div className="rounded-2xl overflow-hidden shadow-card">
-                <img 
-                  src="https://placehold.co/1200x740/f9fafb/d1d5db?text=Resume+AI+Preview" 
-                  alt="ResumeAI Preview" 
-                  className="w-full h-auto"
-                />
-              </div>
-              {/* Floating engagement indicators */}
-              <div className="absolute -top-5 -right-8 bg-white rounded-xl p-3 shadow-elegant animate-float hidden md:block">
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-green-600" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                  </div>
-                  <span className="text-xs font-medium">ATS Score: 98%</span>
-                </div>
-              </div>
-              <div className="absolute -bottom-6 -left-10 bg-white rounded-xl p-3 shadow-elegant animate-float animation-delay-300 hidden md:block">
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                    </svg>
-                  </div>
-                  <span className="text-xs font-medium">Keyword Match: 92%</span>
-                </div>
-              </div>
             </div>
           </div>
         </div>

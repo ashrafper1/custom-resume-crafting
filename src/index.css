@@ -69,6 +69,40 @@
   .h4 {
     @apply text-xl font-semibold;
   }
+
+  section {
+    @apply py-16 md:py-24;
+  }
+  
+  /* Clean aesthetic sections */
+  .section-light {
+    @apply bg-white;
+  }
+  
+  .section-gray {
+    @apply bg-gray-50;
+  }
+}
+
+/* Enhanced card styles */
+.card-hover {
+  @apply transition-all duration-300;
+  &:hover {
+    @apply shadow-card transform -translate-y-1;
+  }
+}
+
+/* Shadow variations */
+.shadow-elegant {
+  @apply shadow-[0_2px_10px_rgba(0,0,0,0.05)];
+}
+
+.shadow-card {
+  @apply shadow-[0_10px_30px_rgba(0,0,0,0.05)];
+}
+
+.shadow-glass {
+  @apply shadow-[0_8px_32px_rgba(0,0,0,0.08)];
 }
 
 /* Glass morphism styles */
@@ -80,20 +114,23 @@
   border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-.glass-dark {
-  @apply bg-black/70 backdrop-blur-sm;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+/* Animation utilities */
+.animate-float {
+  animation: float 3s ease-in-out infinite;
 }
 
-/* Card hover effect */
-.card-hover {
-  @apply transition-all duration-300 ease-out;
-  &:hover {
-    @apply shadow-card transform -translate-y-1;
-  }
+.animate-pulse-soft {
+  animation: pulse-soft 2s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
 }
 
 /* Scroll smooth */

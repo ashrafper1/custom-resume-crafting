@@ -62,6 +62,41 @@ const testimonials = [
     text: "From 0 callbacks to 5 interviews in one week after using ResumeAI. The difference was remarkable.",
     rating: 5,
     image: "https://randomuser.me/api/portraits/women/37.jpg"
+  },
+  {
+    name: "James Thompson",
+    role: "Sales Manager",
+    text: "I was skeptical at first, but the results speak for themselves. Three interviews in my first week of using optimized resumes.",
+    rating: 5,
+    image: "https://randomuser.me/api/portraits/men/32.jpg"
+  },
+  {
+    name: "Sophia Garcia",
+    role: "HR Specialist",
+    text: "As someone who reviews resumes daily, I can confirm this service truly understands what recruiters are looking for.",
+    rating: 5,
+    image: "https://randomuser.me/api/portraits/women/28.jpg"
+  },
+  {
+    name: "Alex Kim",
+    role: "Frontend Developer",
+    text: "The custom tailoring for each job application made all the difference. Finally got calls from my dream companies!",
+    rating: 4,
+    image: "https://randomuser.me/api/portraits/men/17.jpg"
+  },
+  {
+    name: "Olivia Brown",
+    role: "Content Strategist",
+    text: "My resume went from being ignored to getting multiple callbacks. The AI knew exactly which keywords to highlight.",
+    rating: 5,
+    image: "https://randomuser.me/api/portraits/women/90.jpg"
+  },
+  {
+    name: "Daniel Lee",
+    role: "Financial Analyst",
+    text: "In a competitive field like finance, having an optimized resume is essential. This service exceeded my expectations.",
+    rating: 5,
+    image: "https://randomuser.me/api/portraits/men/36.jpg"
   }
 ];
 
@@ -75,129 +110,129 @@ const renderStars = (rating: number) => {
 };
 
 const HowItWorks = () => {
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
-  const testimonialRef = useRef<HTMLDivElement>(null);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const testimonialsRef = useRef<HTMLDivElement>(null);
   
-  const nextTestimonial = () => {
-    setCurrentTestimonial((prev) => 
-      prev === testimonials.length - 1 ? 0 : prev + 1
+  const nextSlide = () => {
+    setActiveSlide((prev) => 
+      prev >= testimonials.length - 3 ? 0 : prev + 1
     );
   };
 
-  const prevTestimonial = () => {
-    setCurrentTestimonial((prev) => 
-      prev === 0 ? testimonials.length - 1 : prev - 1
+  const prevSlide = () => {
+    setActiveSlide((prev) => 
+      prev === 0 ? testimonials.length - 3 : prev - 1
     );
   };
 
   useEffect(() => {
-    if (testimonialRef.current) {
-      testimonialRef.current.scrollTo({
-        left: currentTestimonial * testimonialRef.current.offsetWidth,
-        behavior: 'smooth'
-      });
+    if (testimonialsRef.current) {
+      testimonialsRef.current.style.transform = `translateX(-${activeSlide * (100 / 3)}%)`;
     }
-  }, [currentTestimonial]);
+  }, [activeSlide]);
 
   return (
-    <section className="py-20 bg-background" id="how-it-works">
+    <section className="py-20 bg-gray-50" id="how-it-works">
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="h2 mb-4">How ResumeAI Works</h2>
           <p className="text-lg text-muted-foreground">
-            Our AI-powered platform makes it easy to create tailored resumes in just a few simple steps.
+            Our AI-powered platform makes it easy to create tailored resumes for each job application.
           </p>
         </div>
 
-        {/* Resume Transformation Visualization */}
-        <div className="max-w-6xl mx-auto mb-20">
-          <div className="relative grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        {/* Resume Transformation - SMALLER SIZE */}
+        <div className="max-w-4xl mx-auto mb-20">
+          <div className="relative grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-12 items-center">
             {/* Bad Resume */}
-            <div className="transform transition-all hover:-translate-y-2 duration-300">
+            <div className="transform transition-all hover:-translate-y-1 duration-300 max-w-xs mx-auto md:ml-auto">
               <div className="relative">
-                <div className="absolute -top-12 left-1/2 -translate-x-1/2 bg-red-100 text-red-600 px-4 py-2 rounded-full font-medium">
+                <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-red-100 text-red-600 px-3 py-1 rounded-full text-sm font-medium">
                   Standard Resume
                 </div>
-                <div className="border border-red-200 rounded-xl p-6 bg-white shadow-elegant">
-                  <div className="space-y-2 mb-4">
-                    <div className="h-8 bg-gray-100 rounded-md w-1/2"></div>
-                    <div className="h-4 bg-gray-100 rounded-md w-3/4"></div>
-                    <div className="h-4 bg-gray-100 rounded-md w-full"></div>
+                <div className="border border-red-200 rounded-xl p-4 bg-white shadow-elegant">
+                  <div className="space-y-1 mb-3">
+                    <div className="h-6 bg-gray-100 rounded-md w-1/2"></div>
+                    <div className="h-3 bg-gray-100 rounded-md w-3/4"></div>
                   </div>
-                  <div className="space-y-1 mb-6">
-                    <div className="h-3 bg-red-100 rounded-md w-full"></div>
-                    <div className="h-3 bg-red-100 rounded-md w-full"></div>
-                    <div className="h-3 bg-red-100 rounded-md w-3/4"></div>
+                  <div className="space-y-1 mb-4">
+                    <div className="h-2 bg-red-100 rounded-md w-full"></div>
+                    <div className="h-2 bg-red-100 rounded-md w-full"></div>
+                    <div className="h-2 bg-red-100 rounded-md w-3/4"></div>
                   </div>
-                  <div className="space-y-2 mb-4">
-                    <div className="h-6 bg-gray-100 rounded-md w-1/3"></div>
+                  <div className="space-y-1 mb-3">
+                    <div className="h-4 bg-gray-100 rounded-md w-1/3"></div>
                     <div className="space-y-1">
-                      <div className="h-3 bg-red-100 rounded-md w-full"></div>
-                      <div className="h-3 bg-red-100 rounded-md w-5/6"></div>
-                      <div className="h-3 bg-red-100 rounded-md w-full"></div>
+                      <div className="h-2 bg-red-100 rounded-md w-full"></div>
+                      <div className="h-2 bg-red-100 rounded-md w-5/6"></div>
                     </div>
                   </div>
                   
                   {/* Problem indicators */}
-                  <div className="absolute -right-4 top-1/4 bg-red-100 text-red-600 px-3 py-2 rounded-lg text-xs font-medium shadow-sm animate-pulse">
+                  <div className="absolute -right-2 top-1/4 bg-red-100 text-red-600 px-2 py-1 rounded-lg text-xs font-medium shadow-sm animate-pulse">
                     Missing keywords
                   </div>
-                  <div className="absolute -right-4 bottom-1/4 bg-red-100 text-red-600 px-3 py-2 rounded-lg text-xs font-medium shadow-sm animate-pulse delay-300">
+                  <div className="absolute -right-2 bottom-1/4 bg-red-100 text-red-600 px-2 py-1 rounded-lg text-xs font-medium shadow-sm animate-pulse delay-300">
                     ATS score: 35%
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Arrow and AI process in the middle */}
+            {/* Arrow and AI process in the middle for desktop */}
             <div className="hidden md:block absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-              <div className="bg-blue-600 rounded-full p-4 shadow-lg">
-                <Sparkles className="h-8 w-8 text-white" />
+              <div className="bg-blue-600 rounded-full p-3 shadow-lg">
+                <Sparkles className="h-6 w-6 text-white" />
               </div>
-              <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-blue-100 text-blue-700 px-4 py-1 rounded-full text-sm font-medium whitespace-nowrap">
+              <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap">
                 AI Optimization
               </div>
-              <svg className="absolute top-1/2 -left-32 transform -translate-y-1/2" width="120" height="40" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0,20 Q60,-20 120,20" stroke="#2563EB" strokeWidth="3" fill="none" strokeDasharray="5,5" />
-                <path d="M110,15 L120,20 L110,25" stroke="#2563EB" strokeWidth="3" fill="none" />
+              <svg className="absolute top-1/2 -left-20 transform -translate-y-1/2" width="80" height="30" viewBox="0 0 80 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,15 Q40,-10 80,15" stroke="#2563EB" strokeWidth="2" fill="none" strokeDasharray="4,4" />
+                <path d="M73,10 L80,15 L73,20" stroke="#2563EB" strokeWidth="2" fill="none" />
               </svg>
             </div>
 
+            {/* Mobile arrow */}
+            <div className="flex md:hidden justify-center my-2">
+              <div className="bg-blue-600 rounded-full p-2 shadow-md">
+                <Sparkles className="h-5 w-5 text-white" />
+              </div>
+            </div>
+
             {/* Optimized Resume */}
-            <div className="transform transition-all hover:-translate-y-2 duration-300">
+            <div className="transform transition-all hover:-translate-y-1 duration-300 max-w-xs mx-auto md:mr-auto">
               <div className="relative">
-                <div className="absolute -top-12 left-1/2 -translate-x-1/2 bg-green-100 text-green-600 px-4 py-2 rounded-full font-medium">
+                <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-green-100 text-green-600 px-3 py-1 rounded-full text-sm font-medium">
                   Optimized Resume
                 </div>
-                <div className="border border-green-200 rounded-xl p-6 bg-white shadow-card">
-                  <div className="space-y-2 mb-4">
-                    <div className="h-8 bg-gray-100 rounded-md w-1/2"></div>
-                    <div className="h-4 bg-gray-100 rounded-md w-3/4"></div>
-                    <div className="h-4 bg-gray-100 rounded-md w-full"></div>
+                <div className="border border-green-200 rounded-xl p-4 bg-white shadow-card">
+                  <div className="space-y-1 mb-3">
+                    <div className="h-6 bg-gray-100 rounded-md w-1/2"></div>
+                    <div className="h-3 bg-gray-100 rounded-md w-3/4"></div>
                   </div>
-                  <div className="space-y-1 mb-6">
-                    <div className="h-3 bg-green-100 rounded-md w-full"></div>
-                    <div className="h-3 bg-green-100 rounded-md w-full"></div>
-                    <div className="h-3 bg-green-100 rounded-md w-3/4"></div>
+                  <div className="space-y-1 mb-4">
+                    <div className="h-2 bg-green-100 rounded-md w-full"></div>
+                    <div className="h-2 bg-green-100 rounded-md w-full"></div>
+                    <div className="h-2 bg-green-100 rounded-md w-3/4"></div>
                   </div>
-                  <div className="space-y-2 mb-4">
-                    <div className="h-6 bg-gray-100 rounded-md w-1/3"></div>
+                  <div className="space-y-1 mb-3">
+                    <div className="h-4 bg-gray-100 rounded-md w-1/3"></div>
                     <div className="space-y-1">
-                      <div className="h-3 bg-green-100 rounded-md w-full"></div>
-                      <div className="h-3 bg-green-100 rounded-md w-5/6"></div>
-                      <div className="h-3 bg-green-100 rounded-md w-full"></div>
+                      <div className="h-2 bg-green-100 rounded-md w-full"></div>
+                      <div className="h-2 bg-green-100 rounded-md w-5/6"></div>
                     </div>
                   </div>
                   
                   {/* Success indicators */}
-                  <div className="absolute -right-4 top-1/4 bg-green-100 text-green-600 px-3 py-2 rounded-lg text-xs font-medium shadow-sm">
+                  <div className="absolute -right-2 top-1/4 bg-green-100 text-green-600 px-2 py-1 rounded-lg text-xs font-medium shadow-sm">
                     Keywords matched
                   </div>
-                  <div className="absolute -right-4 bottom-1/4 bg-green-100 text-green-600 px-3 py-2 rounded-lg text-xs font-medium shadow-sm">
+                  <div className="absolute -right-2 bottom-1/4 bg-green-100 text-green-600 px-2 py-1 rounded-lg text-xs font-medium shadow-sm">
                     ATS score: 95%
                   </div>
-                  <div className="absolute bottom-0 right-0 transform translate-y-1/2 translate-x-1/4 bg-green-600 text-white rounded-full w-14 h-14 flex items-center justify-center text-xs font-bold shadow-xl">
-                    100+ Replies
+                  <div className="absolute bottom-0 right-0 transform translate-y-1/2 translate-x-1/4 bg-green-600 text-white rounded-full w-10 h-10 flex items-center justify-center text-xs font-bold shadow-xl">
+                    100+
                   </div>
                 </div>
               </div>
@@ -230,13 +265,14 @@ const HowItWorks = () => {
           </div>
         </div>
 
-        {/* Testimonial Carousel */}
-        <div className="max-w-5xl mx-auto">
+        {/* New Testimonial Carousel (3 at once) */}
+        <div className="max-w-6xl mx-auto">
           <h3 className="text-2xl font-semibold mb-8 text-center">What Our Users Say</h3>
+          
           <div className="relative">
-            <div className="absolute left-0 top-1/2 transform -translate-y-1/2 z-20">
+            <div className="absolute left-0 top-1/2 -translate-y-1/2 z-20">
               <Button 
-                onClick={prevTestimonial} 
+                onClick={prevSlide} 
                 variant="outline" 
                 size="icon" 
                 className="rounded-full h-10 w-10 bg-white shadow-md hover:bg-gray-100"
@@ -245,24 +281,24 @@ const HowItWorks = () => {
               </Button>
             </div>
             
-            <div 
-              ref={testimonialRef}
-              className="flex overflow-hidden pb-6"
-            >
-              <div className="flex transition-transform duration-300 w-full">
+            <div className="overflow-hidden mx-12">
+              <div 
+                ref={testimonialsRef}
+                className="flex transition-transform duration-500 ease-out"
+                style={{ width: `${(testimonials.length / 3) * 100}%` }}
+              >
                 {testimonials.map((testimonial, idx) => (
                   <div 
                     key={idx} 
-                    className="min-w-full px-12"
-                    style={{ transform: `translateX(-${currentTestimonial * 100}%)` }}
+                    className="w-1/3 px-3"
                   >
-                    <Card className="border-none shadow-elegant">
-                      <CardContent className="pt-6">
+                    <Card className="h-full border-none shadow-elegant hover:shadow-card transition-all duration-300">
+                      <CardContent className="p-6">
                         <div className="flex items-center mb-4">
                           <div className="flex">{renderStars(testimonial.rating)}</div>
                         </div>
-                        <p className="text-lg italic mb-6">"{testimonial.text}"</p>
-                        <div className="flex items-center">
+                        <p className="text-base italic mb-6 h-24 overflow-hidden line-clamp-4">"{testimonial.text}"</p>
+                        <div className="flex items-center mt-auto">
                           <div className="h-12 w-12 rounded-full overflow-hidden mr-4">
                             <img src={testimonial.image} alt={testimonial.name} className="h-full w-full object-cover" />
                           </div>
@@ -278,9 +314,9 @@ const HowItWorks = () => {
               </div>
             </div>
             
-            <div className="absolute right-0 top-1/2 transform -translate-y-1/2 z-20">
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 z-20">
               <Button 
-                onClick={nextTestimonial} 
+                onClick={nextSlide} 
                 variant="outline" 
                 size="icon" 
                 className="rounded-full h-10 w-10 bg-white shadow-md hover:bg-gray-100"
@@ -290,15 +326,15 @@ const HowItWorks = () => {
             </div>
           </div>
           
-          <div className="flex justify-center mt-4 space-x-2">
-            {testimonials.map((_, idx) => (
+          <div className="flex justify-center mt-8 space-x-1">
+            {Array(testimonials.length - 2).fill(0).map((_, idx) => (
               <button 
                 key={idx}
-                onClick={() => setCurrentTestimonial(idx)}
+                onClick={() => setActiveSlide(idx)}
                 className={`h-2 rounded-full transition-all ${
-                  currentTestimonial === idx ? 'w-6 bg-blue-600' : 'w-2 bg-gray-300'
+                  activeSlide === idx ? 'w-6 bg-blue-600' : 'w-2 bg-gray-300'
                 }`}
-                aria-label={`Go to testimonial ${idx + 1}`}
+                aria-label={`Go to testimonial group ${idx + 1}`}
               />
             ))}
           </div>
