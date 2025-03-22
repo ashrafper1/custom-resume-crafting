@@ -11,7 +11,7 @@ const steps = [
   {
     icon: <Sparkles className="h-8 w-8 text-white" />,
     title: 'Add Job Description',
-    description: 'Paste the job description you're applying for so our AI can analyze the key requirements and skills.'
+    description: 'Paste the job description you\'re applying for so our AI can analyze the key requirements and skills.'
   },
   {
     icon: <FileCheck className="h-8 w-8 text-white" />,
